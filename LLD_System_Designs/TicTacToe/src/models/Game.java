@@ -106,19 +106,24 @@ public class Game {
     // 0 - 1 = -1 % M
     // (A - B) % M = ((A % M - B %M) + M) % M
 
+    //builder always have the same or less attributes that of its parent class for which this builder is created
+    //in this case its the game class on the basis of the requirements
     public static class Builder {
+        //here we will only need the required parameters from its parent class
         private List<Player> players;
         private List<GameWinningStrategy> gameWinningStrategies;
-        private int dimension;
+        private int dimension; //from the client we will not ask for the board instead we will ask the dimension of the board
 
         Builder() {
             this.players = new ArrayList<>();
             this.gameWinningStrategies = new ArrayList<>();
         }
 
-
+        //In builder generally we just define the getters and setters for the parameters but here since the
+        //parameters are in the form of list we will allow to add the player one by one
+        //example
         // Game.BUilder.setPlayers({})
-        // Game game = Game.Builder.addPlayer(new HumanPlayer())
+        // Game game = Game.Builder.addPlayer(new HumanPlayer()) -> this is better option then the above one
         //                         .addPlayer(new Bot())
         //                         .build();
         public Builder addPlayer(Player player) {
@@ -126,13 +131,14 @@ public class Game {
             return this;
         }
 
+        //this is just as above the only difference is that here we will direcly add players in a list
         public Builder addPlayers(List<Player> players) {
             this.players.addAll(players);
 
             return this;
         }
 
-        public Builder setDimenston(int dimension) {
+        public Builder setDimenston(int dimension) { //instead of adddimension it should be setdimension
             this.dimension = dimension;
             return this;
         }
@@ -148,7 +154,7 @@ public class Game {
             return this;
         }
 
-        private boolean checkIfSingleBotMax() {
+        private boolean checkIfSingleBotMax() { //This is to check that there should be only a single bot
             int count = 0;
 
             for (Player player: players) {

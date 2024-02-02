@@ -1,5 +1,6 @@
 package models;
-
+//Player is an abstract class because we dont need to create an instance of the player class we would just need
+//the instance of the type of player(i.e. either the given player or the bot)
 public abstract class Player {
     private Symbol symbol;
     private PlayerType playerType;

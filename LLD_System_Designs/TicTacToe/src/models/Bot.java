@@ -1,7 +1,10 @@
 package models;
 public class Bot extends Player {
-    //this is just defining the difficulty level i.e. either easy, medium or hard but it is
+    //botPlayingStrategy -> this is just defining the difficulty level i.e. either easy, medium or hard but it is
     //not defining the strategy in which the bot will make its move
+
+    //this botplayingstrategy is just a variable of BotPlayingStrategy type whos defination is defined in its
+    // constructor below
     private BotPlayingStrategy botPlayingStrategy;
 
     //BotPlayingStrategy basically defines the strategy how the bot will play
