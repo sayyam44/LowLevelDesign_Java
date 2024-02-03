@@ -49,17 +49,18 @@ public class Game {
     }
 
     public void makeMove() {
-        this.lastMovedPlayerIndex += 1;
-        this.lastMovedPlayerIndex %= this.players.size();
+        this.lastMovedPlayerIndex += 1;//here we are incrementing the last player moved index by 1
+        this.lastMovedPlayerIndex %= this.players.size(); //if we have 3 players so here we are making each player index to be 0,1,2,0,1,2
 
-        Move move = this.players.get(this.lastMovedPlayerIndex)
+        Move move = this.players.get(this.lastMovedPlayerIndex) //here we are storing the move of the last moved player
                 .makeMove(this.board);
 
-        this.moves.add(move);
+        this.moves.add(move); //adding this move in the moves
 
         move.getCell().setSymbol(move.getSymbol());
 
-        for (GameWinningStrategy strategy: gameWinningStrategies) {
+        for (GameWinningStrategy strategy: gameWinningStrategies) { //here we are checking that whether we have some winner
+            //then we will end the game
             if (strategy.checkIfWon(this.board, this.players.get(lastMovedPlayerIndex), move.getCell())) {
                 gameStatus = GameStatus.ENDED;
                 winner = this.players.get(lastMovedPlayerIndex);
@@ -67,6 +68,7 @@ public class Game {
             }
         }
 
+        //to check is it draw or not
         if (moves.size() == this.board.getDimension() * this.board.getDimension()) {
             gameStatus = GameStatus.DRAW;
             return;
@@ -77,6 +79,7 @@ public class Game {
     //  0 1 2 3 4
     //  0
 
+    //this function is to undo the last move
     public static Builder create() {
         return new Builder();
     }
@@ -88,14 +91,14 @@ public class Game {
         }
 
         Move lastMove = this.moves.get(this.moves.size() - 1);
-        Cell relevantCell = lastMove.getCell();
-        relevantCell.clearCell();
-        this.lastMovedPlayerIndex -= 1;
-        this.lastMovedPlayerIndex = (this.lastMovedPlayerIndex + this.players.size()) % this.players.size();
-        this.moves.remove(lastMove);
+        Cell relevantCell = lastMove.getCell(); //c1 c2 c3 c4 , p1,p2,p3,p4,p5 ,  here the turn will be of 5th player
+        relevantCell.clearCell();//clear the cell //c1 c2 c3 null , now the turn will be of 4th player
+        this.lastMovedPlayerIndex -= 1; //reduce the index of the last moved player by 1
+        this.lastMovedPlayerIndex = (this.lastMovedPlayerIndex + this.players.size()) % this.players.size(); //add the size and mod again
+        this.moves.remove(lastMove);//remove the last move
         return true;
     }
-
+    //example for above
     //  0      1      2     3
     // [Cell1 Cell2 Cell3 Cell4]
     //  0      1      2

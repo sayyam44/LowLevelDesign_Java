@@ -19,7 +19,12 @@ public abstract class Player {
         return playerType;
     }
 
-    public abstract Move makeMove(Board board);
+    //So after creating the game through builder class this is the second step that player will make a move
+    //and this is of abstract type so that both the human player and the bot player can implement this method
+    //abstract method means till now we dont have the definition of this method but
+    // we need to define this method in its child classes necessarily
+    //now after this we will go in player class to implement this method there
+    public abstract Move makeMove(Board board); //since the move is based on the board
 }
 
 // StartGame
